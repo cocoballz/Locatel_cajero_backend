@@ -14,7 +14,7 @@ Actualmente el proyecto cuenta con cuatro (4) endpoints del tipo API REST:
 
 ```route - POST (Login): /api/login ```
 
-```route - POST (Crear Usuarios): /api/userinfo ```
+```route - POST (Info de 1 Usuario): /api/userinfo ```
 
 
 >CLIENTE:
@@ -33,8 +33,11 @@ Actualmente el proyecto cuenta con cuatro (4) endpoints del tipo API REST:
 
 > **Observaciones del Desarrollador:**
 >
-> Por favoy no olvide en Configurar el archivo **.ENV** y ejecutar el comando **PHP Artisan Migrate**
-
+> 
+>Por favoy no olvide en Configurar el archivo **.ENV** y ejecutar el comando **PHP Artisan Migrate**
+>
+> Adicionalmente no olvide que por defecto el controllador **app/Http/Controllers/TransactionController Line:57** Tiene el orden en el que deberian estar guardadas las operaciones en la tabla **tipo_tramite**.
+> 
 ## 📖 📋 Especificaciones:
 Su empleador lo ha contratado para renovar su sistema financiero de gestión de cuentas de ahorro. Necesitamos una
 solución que se ajuste a las necesidades de la compañía, que permita ser competitivo en un mercado en el cual el
