@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Route;
 */
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
+Route::get('/login', function () { return view('welcome'); })->name('login');
 Route::post('/userinfo', [AuthController::class, 'userinfo'])->middleware('auth:sanctum');
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
