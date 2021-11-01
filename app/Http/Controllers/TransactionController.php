@@ -47,16 +47,25 @@ class TransactionController extends Controller
     public function tramite()
     {
         $datos = Request()->validate([
-            'cuenta' => 'required|string|min:2',
+            'cuenta' => 'required|numeric|min:2',
             'valor' => 'required|numeric|min:0',
-            'tipo' => 'required|integer',
+            'tipo' => 'required|numeric',
         ]);
         $cuenta = CuentaModel::where('cuenta', $datos['cuenta'])->get();
         $tipo_tramite = TipoTramiteModel::findOrFail($datos['tipo']);
 
         switch ($tipo_tramite->id) {
-            case 1:  // CONSULTAR
-                return $cuenta;
+            case 1 :  // CONSULTAR
+                //echo print_r($cuenta);
+                Return Response()->json(['status' => 1, 'datos' => [
+                    'cuenta'=>$cuenta[0]['cuenta'],
+                    'name'=>$cuenta[0]['cliente_nomrbe'],
+                    'saldo'=>$cuenta[0]['saldo'],
+                    'create'=>$cuenta[0]['created_at'],
+                    'Actualiza'=>$cuenta[0]['updated_at']
+                    ]
+                ]);
+
                 break;
             case 2: // RETIRAR
                 $status = $this->gestion_cueta($datos, $cuenta, 'restar');
@@ -87,7 +96,7 @@ class TransactionController extends Controller
         if ($tipo === 'restar') {
             $new_valor = $cuenta->saldo - $datos['valor'];
             if ($new_valor < 0) {
-                return Response()->json(['status' => 0, 'message' => 'Saldo insuficiente'], 404);
+                return Response()->json(['status' => 0, 'message' => 'Saldo insuficiente']);
             } else {
                 CuentaModel::where('id', $cuenta->id)->update(['saldo' => $new_valor]);
 
